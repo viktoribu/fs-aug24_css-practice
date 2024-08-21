@@ -1,1 +1,111 @@
+@mixin onDesktop {
+  @media (min-width: 1000px){
+    @content;
+  }
+}
 
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.wrapper {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.people {
+  padding: 30px 35px;
+
+  display: grid;
+  column-gap: 30px;
+  row-gap: 40px;
+  grid-template-columns: repeat(2, 1fr);
+
+  max-width: 500px;
+
+  @include onDesktop {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1000px;
+  }
+}
+
+.person {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    width: 220px;
+    height: 287px;
+
+    background-color: #EEEEEE;
+    border-radius: 10px;
+
+    animation: changes 1s ease 0 1 normal;
+  }
+
+  @for $i from 1 through 10 {
+    &:nth-child(#{$i})::before {
+      content: '#{$i}';
+      position: absolute;
+      top: 84px;
+      left: 160px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      height: 32px;
+      width: 32px;
+
+      background-color:#FFFFFF;
+      border-radius: 100%;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 18.4px;
+      color:#8B0000;
+    }
+  }
+
+  &__photo {
+    padding-bottom: 8px;
+
+    &-img {
+      width: 200px;
+      height: 200px;
+      border-radius: 100%;
+    }
+  }
+
+  &__name {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 23px;
+    color:#2F4F4F;
+  }
+
+  &__extra {
+    display: none;
+  }
+}
+
+@keyframes changes {
+  from {
+    width: 220px;
+  }
+  to {
+    width: 264px;
+  }
+}
